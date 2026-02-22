@@ -107,3 +107,7 @@ function getIndex(id) {
 function createID() {
   return members[members.length - 1].id + 1;
 }
+app.get("/", (req, res) => {
+  res.json({ ok: "Good Job" });
+});
+module.exports = app;
