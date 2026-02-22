@@ -97,7 +97,19 @@ MembersRouter.route("/:id").delete((req, res) => {
   }
 });
 app.use(config.routeApi + "members", MembersRouter);
-app.listen(config.port, () => console.log("Started on port " + config.port));
+
+app.get("/", (req, res) => {
+  res.json({ ok: "Good Job" });
+});
+
+// For local development
+if (require.main === module) {
+  app.listen(config.port, () => console.log("Started on port " + config.port));
+}
+
+// For Vercel deployment
+module.exports = app;
+
 function getIndex(id) {
   for (let i = 0; i < members.length; i++) {
     if (members[i].id == id) return i;
@@ -107,7 +119,3 @@ function getIndex(id) {
 function createID() {
   return members[members.length - 1].id + 1;
 }
-app.get("/", (req, res) => {
-  res.json({ ok: "Good Job" });
-});
-module.exports = app;
